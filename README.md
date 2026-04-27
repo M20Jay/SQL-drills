@@ -84,7 +84,6 @@ ORDER BY month;
 ---
 
 ## 15-Week SQL Progression
-
 | Week | Topic | Key Concepts |
 |------|-------|-------------|
 | 1 | Foundations | SELECT · WHERE · GROUP BY · HAVING · INNER JOIN · LEFT JOIN |
@@ -92,12 +91,11 @@ ORDER BY month;
 | 3 | Subqueries + Advanced JOINs | Correlated subqueries · EXISTS · SELF JOIN · FULL OUTER JOIN |
 | 4 | Aggregations + Analytics | CASE WHEN · COALESCE · DATE functions · String functions |
 | 5 | Performance + Production SQL | Indexes · EXPLAIN ANALYZE · Views · Materialised Views |
-| 6–7 | Advanced Window Functions | NTILE · PERCENT_RANK · FIRST_VALUE · LAST_VALUE · Rolling averages |
-| 8–9 | MLOps SQL Patterns | Feature store queries · Drift detection · Time series aggregations |
-| 10–11 | Interview Patterns | ARPU by segment · Churn cohorts · Fraud rate · Unitel-style questions |
-| 12–13 | Spark SQL + dbt | BigQuery style · dbt models · Data lineage |
-| 14–15 | NLP + Advanced Analytics | JSON queries · Full text search · Array operations |
-
+| 6 & 7 | Advanced Window Functions | NTILE · PERCENT_RANK · FIRST_VALUE · LAST_VALUE · Rolling averages |
+| 8 & 9 | MLOps SQL Patterns | Feature store queries · Drift detection · Time series aggregations |
+| 10 & 11 | Interview Patterns | ARPU by segment · Churn cohorts · Fraud rate · Unitel-style questions |
+| 12 & 13 | Spark SQL + dbt | BigQuery style · dbt models · Data lineage |
+| 14 & 15 | NLP + Advanced Analytics | JSON queries · Full text search · Array operations |
 ---
 
 **Martin James Ng'ang'a** · MLOps Engineer · Nairobi, Kenya 🇰🇪
