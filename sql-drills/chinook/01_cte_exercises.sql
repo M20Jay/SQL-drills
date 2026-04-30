@@ -1,8 +1,3 @@
--- =============================================
--- SQL Drills · Chinook Database · CTEs
--- Martin James Ng'ang'a · github.com/M20Jay
--- =============================================
-
 -- Exercise 1: Your First CTE
 -- Find all customers with at least one invoice > 10
 -- Tables: customer, invoice
@@ -15,8 +10,6 @@ WITH high_value_customers AS (
 )
 SELECT * FROM high_value_customers
 ORDER BY last_name;
-
--- =============================================
 
 -- Exercise 2: CTE with JOIN
 -- Calculate total invoices and amount spent per customer
@@ -39,8 +32,6 @@ FROM customer c
 JOIN invoice_summary s ON s.customer_id = c.customer_id
 ORDER BY total_spent DESC;
 
--- =============================================
-
 -- Exercise 3: CTE with GROUP BY + Filter
 -- Calculate total revenue per country, show only countries above 35
 -- Table: invoice
@@ -56,5 +47,3 @@ SELECT *
 FROM country_revenue
 WHERE total_revenue > 35
 ORDER BY total_revenue DESC;
-
--- =============================================
