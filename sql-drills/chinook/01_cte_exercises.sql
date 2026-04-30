@@ -47,3 +47,20 @@ SELECT *
 FROM country_revenue
 WHERE total_revenue > 35
 ORDER BY total_revenue DESC;
+
+-- Exercise 4: Two CTEs Chained
+-- Find high spending customers (total spent > 40)
+-- Tables: customer, invoice/dt
+WITH customer_totals AS (
+    SELECT customer_id, SUM(total) AS total_spent
+    FROM invoice
+    GROUP BY customer_id
+),
+high_spenders AS (
+    SELECT * FROM customer_totals
+    WHERE total_spent > 40
+)
+SELECT first_name, last_name, total_spent
+FROM customer AS c
+JOIN high_spenders AS hs ON hs.customer_id = c.customer_id
+ORDER BY total_spent DESC;
