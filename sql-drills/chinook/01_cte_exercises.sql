@@ -64,3 +64,33 @@ SELECT first_name, last_name, total_spent
 FROM customer AS c
 JOIN high_spenders AS hs ON hs.customer_id = c.customer_id
 ORDER BY total_spent DESC;
+
+-- =============================================
+-- Exercise 5: CTE + CASE WHEN Segmentation
+-- Segment customers into VIP, Regular, Occasional
+-- based on total spending
+-- Tables: customer, invoice
+-- =============================================
+-- Exercise 5: CTE + CASE WHEN Segmentation
+-- Segment customers by total spending
+-- Tables: customer, invoice
+
+WITH customer_spending AS (
+    SELECT
+        customer_id,
+        SUM(total) AS total_spent
+    FROM invoice
+    GROUP BY customer_id
+)
+SELECT
+    c.first_name,
+    c.last_name,
+    cs.total_spent,
+    CASE
+        WHEN cs.total_spent > 40 THEN 'VIP'
+        WHEN cs.total_spent >= 20 AND cs.total_spent <= 40 THEN 'Regular'
+        ELSE 'Occasional'
+    END AS segment
+FROM customer_spending cs
+LEFT JOIN customer c ON cs.customer_id = c.customer_id
+ORDER BY total_spent DESC;
