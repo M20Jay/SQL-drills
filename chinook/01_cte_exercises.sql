@@ -58,3 +58,18 @@ WHERE total_revenue > 35
 ORDER BY total_revenue DESC;
 
 -- =============================================
+-- Exercise 6: CTE Replacing a Subquery
+-- =============================================
+WITH track_sales AS (
+    SELECT track_id, SUM(quantity) AS total_sold
+    FROM invoice_line
+    GROUP BY track_id
+),
+avg_sales AS (
+    SELECT AVG(total_sold) AS avg_sold 
+    FROM track_sales
+)
+SELECT ts.track_id, ts.total_sold
+FROM track_sales ts, avg_sales a
+WHERE ts.total_sold > a.avg_sold
+ORDER BY ts.total_sold DESC;
