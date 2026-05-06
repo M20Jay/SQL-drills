@@ -73,3 +73,40 @@ SELECT ts.track_id, ts.total_sold
 FROM track_sales ts, avg_sales a
 WHERE ts.total_sold > a.avg_sold
 ORDER BY ts.total_sold DESC;
+
+-- =============================================
+-- Exercise 7: Three CTEs — Fraud Detection Style
+-- Find customers with unusual invoice spikes
+-- Tables: invoice, customer
+-- =============================================
+
+WITH customer_stats AS (
+    SELECT
+        customer_id,
+        COUNT(invoice_id)        AS total_invoices,
+        SUM(total)               AS total_spent,
+        AVG(total)               AS avg_invoice,
+        MAX(total)               AS max_invoice
+    FROM invoice
+    GROUP BY customer_id
+),
+flagged AS (
+    SELECT *
+    FROM customer_stats
+    WHERE max_invoice > avg_invoice * 2
+),
+final_report AS (
+    SELECT
+        f.customer_id,
+        f.total_invoices,
+        ROUND(f.total_spent::NUMERIC, 2)  AS total_spent,
+        ROUND(f.avg_invoice::NUMERIC, 2)  AS avg_invoice,
+        ROUND(f.max_invoice::NUMERIC, 2)  AS max_invoice,
+        c.first_name,
+        c.last_name,
+        c.country
+    FROM flagged f
+    JOIN customer c ON f.customer_id = c.customer_id
+)
+SELECT * FROM final_report
+ORDER BY max_invoice DESC;
