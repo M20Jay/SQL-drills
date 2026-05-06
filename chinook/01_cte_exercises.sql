@@ -83,7 +83,7 @@ ORDER BY ts.total_sold DESC;
 WITH customer_stats AS (
     SELECT
         customer_id,
-        COUNT(invoice_id)        AS total_invoices,
+        COUNT(invoice_id)        AS total_invoices,q
         SUM(total)               AS total_spent,
         AVG(total)               AS avg_invoice,
         MAX(total)               AS max_invoice
@@ -110,3 +110,38 @@ final_report AS (
 )
 SELECT * FROM final_report
 ORDER BY max_invoice DESC;
+
+-- =============================================
+-- Exercise 8: Recursive CTE — Employee Hierarchy
+-- Build full org chart with levels
+-- Table: employee
+-- =============================================
+WITH RECURSIVE org_chart AS (
+
+    -- Part 1: Start at the top — employee with no manager
+    SELECT 
+        employee_id,
+        first_name,
+        last_name,
+        title,
+        reports_to,
+        1 AS level
+    FROM employee
+    WHERE reports_to IS NULL
+
+    UNION ALL
+
+    -- Part 2: Find everyone reporting to previous results
+    SELECT 
+        e.employee_id,
+        e.first_name,
+        e.last_name,
+        e.title,
+        e.reports_to,
+        oc.level + 1
+    FROM employee e
+    JOIN org_chart oc ON e.reports_to = oc.employee_id
+
+)
+SELECT * FROM org_chart
+ORDER BY level, employee_id;
